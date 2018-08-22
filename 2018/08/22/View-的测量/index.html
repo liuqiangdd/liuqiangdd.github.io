@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="回首页新建文集 新建文章 在下方新建文章已保存 View 的测量 已发布 重写 onMeasure 方法在对 View 进行测量时，要在 onMeasure 方法中使用 setMeasuredDimension 设置测量后的结果。 setMeasuredDimension 方法需要传入两个参数，即测量后的宽和高。下面就来看看如何对宽高进行测量。 onMeasure 方法中有两个参数，分别为父 Vi">
+<meta name="description" content="重写 onMeasure 方法在对 View 进行测量时，要在 onMeasure 方法中使用 setMeasuredDimension 设置测量后的结果。 setMeasuredDimension 方法需要传入两个参数，即测量后的宽和高。下面就来看看如何对宽高进行测量。 onMeasure 方法中有两个参数，分别为父 View 对子 View 宽高的限制。我们在进行测量时需要根据这两个参数取出测">
 <meta property="og:type" content="article">
 <meta property="og:title" content="View 的测量">
 <meta property="og:url" content="http://yoursite.com/2018/08/22/View-的测量/index.html">
 <meta property="og:site_name" content="三十三岁">
-<meta property="og:description" content="回首页新建文集 新建文章 在下方新建文章已保存 View 的测量 已发布 重写 onMeasure 方法在对 View 进行测量时，要在 onMeasure 方法中使用 setMeasuredDimension 设置测量后的结果。 setMeasuredDimension 方法需要传入两个参数，即测量后的宽和高。下面就来看看如何对宽高进行测量。 onMeasure 方法中有两个参数，分别为父 Vi">
+<meta property="og:description" content="重写 onMeasure 方法在对 View 进行测量时，要在 onMeasure 方法中使用 setMeasuredDimension 设置测量后的结果。 setMeasuredDimension 方法需要传入两个参数，即测量后的宽和高。下面就来看看如何对宽高进行测量。 onMeasure 方法中有两个参数，分别为父 View 对子 View 宽高的限制。我们在进行测量时需要根据这两个参数取出测">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4962710-d0de32ffe37b4773.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/200">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4962710-17c86e24dc83e14f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/200">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4962710-41f2f18e317b4aed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/200">
-<meta property="og:updated_time" content="2018-08-22T08:39:03.430Z">
+<meta property="og:updated_time" content="2018-08-22T08:41:24.072Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="View 的测量">
-<meta name="twitter:description" content="回首页新建文集 新建文章 在下方新建文章已保存 View 的测量 已发布 重写 onMeasure 方法在对 View 进行测量时，要在 onMeasure 方法中使用 setMeasuredDimension 设置测量后的结果。 setMeasuredDimension 方法需要传入两个参数，即测量后的宽和高。下面就来看看如何对宽高进行测量。 onMeasure 方法中有两个参数，分别为父 Vi">
+<meta name="twitter:description" content="重写 onMeasure 方法在对 View 进行测量时，要在 onMeasure 方法中使用 setMeasuredDimension 设置测量后的结果。 setMeasuredDimension 方法需要传入两个参数，即测量后的宽和高。下面就来看看如何对宽高进行测量。 onMeasure 方法中有两个参数，分别为父 View 对子 View 宽高的限制。我们在进行测量时需要根据这两个参数取出测">
 <meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/4962710-d0de32ffe37b4773.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/200">
 
 
@@ -335,9 +335,7 @@
       
 
       
-        <p>回首页<br>新建文集<br> 新建文章<br> 在下方新建文章<br>已保存</p>
-<p>View 的测量<br> 已发布</p>
-<h2 id="重写-onMeasure-方法"><a href="#重写-onMeasure-方法" class="headerlink" title="重写 onMeasure 方法"></a>重写 onMeasure 方法</h2><p>在对 <strong>View</strong> 进行测量时，要在 <strong>onMeasure</strong> 方法中使用 <strong>setMeasuredDimension</strong> 设置测量后的结果。 <strong>setMeasuredDimension</strong> 方法需要传入两个参数，即测量后的宽和高。下面就来看看如何对宽高进行测量。</p>
+        <h2 id="重写-onMeasure-方法"><a href="#重写-onMeasure-方法" class="headerlink" title="重写 onMeasure 方法"></a>重写 onMeasure 方法</h2><p>在对 <strong>View</strong> 进行测量时，要在 <strong>onMeasure</strong> 方法中使用 <strong>setMeasuredDimension</strong> 设置测量后的结果。 <strong>setMeasuredDimension</strong> 方法需要传入两个参数，即测量后的宽和高。下面就来看看如何对宽高进行测量。</p>
 <p><strong>onMeasure</strong> 方法中有两个参数，分别为父 View 对子 View 宽高的限制。我们在进行测量时需要根据这两个参数取出测量模式和实际大小，我们以宽度为例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int widthMode = MeasureSpec.getMode(widthMeasureSpec);</span><br><span class="line">int widthSize = MeasureSpec.getSize(widthMeasureSpec);</span><br></pre></td></tr></table></figure></p>
 <h2 id="三种测量模式"><a href="#三种测量模式" class="headerlink" title="三种测量模式"></a>三种测量模式</h2><ul>
 <li><strong>EXACTLY</strong>：精确值模式。对应布局文件中的 match_parent 或者具体的数值。</li>
