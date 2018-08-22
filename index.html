@@ -242,6 +242,164 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/22/View-的测量/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ChrongLiu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="三十三岁">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/22/View-的测量/" itemprop="url">View 的测量</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-22T16:37:10+08:00">
+                2018-08-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>回首页<br>新建文集<br> 新建文章<br> 在下方新建文章<br>已保存</p>
+<p>View 的测量<br> 已发布</p>
+<h2 id="重写-onMeasure-方法"><a href="#重写-onMeasure-方法" class="headerlink" title="重写 onMeasure 方法"></a>重写 onMeasure 方法</h2><p>在对 <strong>View</strong> 进行测量时，要在 <strong>onMeasure</strong> 方法中使用 <strong>setMeasuredDimension</strong> 设置测量后的结果。 <strong>setMeasuredDimension</strong> 方法需要传入两个参数，即测量后的宽和高。下面就来看看如何对宽高进行测量。</p>
+<p><strong>onMeasure</strong> 方法中有两个参数，分别为父 View 对子 View 宽高的限制。我们在进行测量时需要根据这两个参数取出测量模式和实际大小，我们以宽度为例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int widthMode = MeasureSpec.getMode(widthMeasureSpec);</span><br><span class="line">int widthSize = MeasureSpec.getSize(widthMeasureSpec);</span><br></pre></td></tr></table></figure></p>
+<h2 id="三种测量模式"><a href="#三种测量模式" class="headerlink" title="三种测量模式"></a>三种测量模式</h2><ul>
+<li><strong>EXACTLY</strong>：精确值模式。对应布局文件中的 match_parent 或者具体的数值。</li>
+<li><strong>AT_MOST</strong>：最大值模式。对应布局文件中的 wrap_content</li>
+<li><strong>UNSPECIFIED</strong>：无限制模式。很少用到。</li>
+</ul>
+<h2 id="具体测量"><a href="#具体测量" class="headerlink" title="具体测量"></a>具体测量</h2><p>假设我们指定 View 的宽高为300px，则可进行如下测量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) &#123;</span><br><span class="line">    int width = 300;</span><br><span class="line">    int height = 300;</span><br><span class="line">    setMeasuredDimension(measureWidth(width, widthMeasureSpec),</span><br><span class="line">            measureHeight(height, heightMeasureSpec));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 测量宽度</span><br><span class="line"> * @param width</span><br><span class="line"> * @param widthMeasureSpec</span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">public int measureWidth(int width, int widthMeasureSpec) &#123;</span><br><span class="line">    int widthResult;</span><br><span class="line">    int widthMode = MeasureSpec.getMode(widthMeasureSpec);</span><br><span class="line">    int widthSize = MeasureSpec.getSize(widthMeasureSpec);</span><br><span class="line">    switch (widthMode) &#123;</span><br><span class="line">        case MeasureSpec.EXACTLY:</span><br><span class="line">            widthResult = widthSize;</span><br><span class="line">            break;</span><br><span class="line">        case MeasureSpec.AT_MOST:</span><br><span class="line">            if (widthSize &lt; width) &#123;</span><br><span class="line">                widthResult = widthSize;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                widthResult = width;</span><br><span class="line">            &#125;</span><br><span class="line">            break;</span><br><span class="line">        default:</span><br><span class="line">            widthResult = width;</span><br><span class="line">            break;</span><br><span class="line">    &#125;</span><br><span class="line">    return widthResult;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当为 EXACTLY 模式时，最终测量结果为父 View 所限制的宽度。<br>当为 AT_MOST 模式时，最终测量结果为父 View 所限制的宽度与所定义尺寸的最小值。</p>
+<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;com.chrongliu.customviewsample.MeasureView</span><br><span class="line">   android:layout_width=&quot;match_parent&quot;</span><br><span class="line">   android:layout_height=&quot;match_parent&quot;</span><br><span class="line">   android:background=&quot;@color/colorAccent&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="https://upload-images.jianshu.io/upload_images/4962710-d0de32ffe37b4773.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/200" alt="match_parent.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;com.chrongliu.customviewsample.MeasureView</span><br><span class="line">    android:layout_width=&quot;50dp&quot;</span><br><span class="line">    android:layout_height=&quot;50dp&quot;</span><br><span class="line">    android:background=&quot;@color/colorAccent&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="https://upload-images.jianshu.io/upload_images/4962710-17c86e24dc83e14f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/200" alt="50dp.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;com.chrongliu.customviewsample.MeasureView</span><br><span class="line">    android:layout_width=&quot;wrap_content&quot;</span><br><span class="line">    android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">    android:background=&quot;@color/colorAccent&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="https://upload-images.jianshu.io/upload_images/4962710-41f2f18e317b4aed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/200" alt="wrap_content.png"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/22/使用-Hexo-搭建个人博客/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -425,7 +583,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -436,7 +594,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
